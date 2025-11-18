@@ -1,0 +1,322 @@
+OS_O_MODEL_SPEC_v1_4:
+  meta:
+    name: "OS_O – Open Source Operator (Minimal Core)"
+    version: "1.4"
+    purpose: >
+      Minimal dual-operator model (OS_L vs. OS_E) with a meta-layer (OML)
+      that separates mechanic from narrative. v1.4 adds a reference
+      implementation for scoring, a simple time kernel, and an explicit
+      OS_L/OS_E interaction matrix. Das Modell bleibt heuristisch, nicht
+      deterministisch.
+    design_principles:
+      - "keep core minimal"
+      - "prefer heuristics over pseudo-precision"
+      - "treat all rules as probabilistic tendencies, not laws"
+      - "optimize for LLM usability and interpretability"
+
+  # --------------------------------
+  # 1. CORE OPERATORS
+  # --------------------------------
+  operators:
+    OS_L:
+      meaning: "Stabilization / order / risk-reduction"
+      triggers: ["risk ↑", "uncertainty ↑", "instability ↑"]
+      behavior: ["codify", "restrict", "regulate", "preserve"]
+      failure_modes: ["rigidity", "dogma", "innovation_suppression"]
+
+    OS_E:
+      meaning: "Expansion / innovation / opportunity-exploitation"
+      triggers: ["opportunity ↑", "stagnation ↑", "unused_resources ↑"]
+      behavior: ["explore", "innovate", "disrupt", "scale"]
+      failure_modes: ["overshoot", "risk_accumulation", "fragility"]
+
+  # --------------------------------
+  # 2. META-LAYER OML (Unique Contribution)
+  # --------------------------------
+  OML:
+    meaning: >
+      Open Mechanic Layer – explicit separation of:
+        - mechanic: functional WHAT (based on risk/opportunity)
+        - narrative: cultural WHY (justification story)
+    key_point: >
+      Divergence between mechanic and narrative is analytically important,
+      but not universal. High-alignment cultures and systems exist.
+    LLM_instruction:
+      - "Always output mechanic and narrative separately."
+      - "If they match, say: 'mechanic == narrative (high alignment)'."
+      - "If they diverge, summarize the gap explicitly."
+      - "Do not moralize; describe functional trade-offs."
+
+  # --------------------------------
+  # 3. TEMPORAL DYNAMICS + TIME KERNEL
+  # --------------------------------
+  temporal_dynamics:
+    concepts:
+      latency:
+        description: "delay between trigger and system reaction"
+        typical_pattern:
+          OS_L: "higher latency (slow, verification-focused)"
+          OS_E: "lower latency (fast, opportunistic)"
+      momentum:
+        description: "tendency to keep current OS_mode despite new signals"
+        OS_L: "high (institutions, bureaucracy, legal inertia)"
+        OS_E: "medium (path-dependence, sunk cost in expansion)"
+      hysteresis:
+        description: >
+          system stays in OS_L or OS_E longer than triggers justify
+          due to institutional, psychological, or economic lock-in.
+      tipping_points:
+        description: "nonlinear shifts when cumulative triggers cross a threshold"
+
+    boundary_conditions:
+      time_scale:
+        description: >
+          OS_O is agnostic to absolute time. The analyst must define
+          a consistent step size (time_scale) per analysis.
+        examples:
+          - "1 step = 1 day (news / market cycles)"
+          - "1 step = 1 month (policy cycles)"
+          - "1 step = 1 year (historical regimes)"
+      rules:
+        - "Do not mix time_scales within a single analysis."
+        - "Interpret latency/momentum qualitatively, not as exact durations."
+
+    time_kernel:
+      description: >
+        Simple qualitative update logic for L_dominance and E_dominance
+        across time steps. Values are in [0,1].
+      parameters:
+        latency_L: "0.3  # OS_L adapts slower"
+        latency_E: "0.6  # OS_E adapts faster"
+        momentum_factor: "0.5  # dampens change by 50%"
+      update_rule_pseudo:
+        - "delta = threat_score - opportunity_score"
+        - "L_raw = L_now + latency_L * delta"
+        - "E_raw = E_now - latency_E * delta"
+        - "L_next = L_now + momentum_factor * (L_raw - L_now)"
+        - "E_next = E_now + momentum_factor * (E_raw - E_now)"
+        - "clip L_next, E_next into [0,1]"
+      note: >
+        The time_kernel is an optional mental model or simulation
+        scaffold. It is not required for one-shot text analysis.
+
+  # --------------------------------
+  # 4. INTERACTION DYNAMICS OS_L ↔ OS_E
+  # --------------------------------
+  interaction_dynamics:
+    description: >
+      OS_L and OS_E are not strictly exclusive. They can co-exist and
+      interact as competing or complementary logics.
+    state_variables:
+      L_dominance:
+        range: [0.0, 1.0]
+        meaning: "relative strength of OS_L at time t"
+      E_dominance:
+        range: [0.0, 1.0]
+        meaning: "relative strength of OS_E at time t"
+    coexistence_constraint:
+      description: >
+        L_dominance and E_dominance are intensities, not strictly
+        exclusive probabilities. Both are bounded individually in [0,1].
+        In many analyses it is useful to avoid unrealistic "max everything"
+        states by capping their sum.
+      recommended_cap: 1.5
+      note: >
+        1.5 is a pragmatic guideline, not a law of nature. Analysts may
+        adjust this cap (e.g. 1.2 or 1.8) or omit it entirely when very
+        high coexistence is contextually plausible (e.g. dual-mode
+        high-performance systems).
+
+    qualitative_rules:
+      - "High L_dominance tends to dampen E_actions (regulation gates innovation)."
+      - "High E_dominance tends to erode L_structures (disruption bypasses rules)."
+      - "Mixed states (L≈E) often produce creative tension or policy deadlock."
+      - "Healthy systems often oscillate: E-driven expansion → L-driven consolidation."
+
+    interaction_matrix:
+      rows: ["OS_E_low", "OS_E_high"]
+      cols: ["OS_L_low", "OS_L_high"]
+      cells:
+        OS_E_low:
+          OS_L_low: "Low-dynamic stasis (little innovation, little control)."
+          OS_L_high: "Regulatory lock-in / bureaucracy (order without dynamism)."
+        OS_E_high:
+          OS_L_low: "Expansion wave (rapid innovation, weak guardrails)."
+          OS_L_high: "Dual-mode systems / creative tension (e.g. regulated innovation hubs, Japan/Singapore-style)."
+
+  # --------------------------------
+  # 5. HUMAN-CENTRIC API + HEURISTIC SCORING
+  # --------------------------------
+  human_centric_API:
+    description: >
+      Human- and institution-focused API. For non-human agents
+      (AIs, markets, ecosystems), this API is a starting point, not universal.
+    fields:
+      self_preservation: {type: bool, default: true}
+      family_preservation: {type: bool, default: true}
+      threat_score: {type: float, range: [0,1]}
+      opportunity_score: {type: float, range: [0,1]}
+      OS_mode: {type: string, values: ["OS_L", "OS_E", "mixed"]}
+
+    heuristic_scoring_formula:
+      description: >
+        Simple, interpretable scoring for threat_score and opportunity_score
+        based on text features. It is approximate by design.
+      inputs:
+        - "text: raw input (speech, policy, article, comment)"
+      dictionaries:
+        risk_terms: ["crisis", "threat", "danger", "terrorism", "collapse",
+          "instability", "security", "emergency"]
+        opportunity_terms: ["opportunity", "growth", "innovation", "potential",
+          "frontier", "expansion", "prosperity"]
+      scoring_rules:
+        threat_score: >
+          threat_score = clip(
+            0.5 * risk_term_frequency(text)
+            + 0.3 * negative_sentiment(text)
+            + 0.2 * uncertainty_markers(text),
+          0.0, 1.0)
+        opportunity_score: >
+          opportunity_score = clip(
+            0.6 * opportunity_term_frequency(text)
+            + 0.4 * positive_future_orientation(text),
+          0.0, 1.0)
+      OS_selection_rule:
+        epsilon: 0.1
+        rules:
+          - "if threat_score > opportunity_score + epsilon → OS_L-dominant"
+          - "if opportunity_score > threat_score + epsilon → OS_E-dominant"
+          - "else → mixed / ambiguous"
+      caveats:
+        - "Use as heuristic, not as ground truth."
+        - "Always report uncertainty if scores are close."
+
+  reference_implementation:
+    language: "pseudocode (Python-like)"
+    code: |
+      risk_terms = ["crisis", "threat", "danger", "terrorism", "collapse",
+                    "instability", "security", "emergency"]
+      opportunity_terms = ["opportunity", "growth", "innovation", "potential",
+                           "frontier", "expansion", "prosperity"]
+
+      def freq(text, term_list):
+          # count normalized frequency of any term in term_list
+          t = text.lower()
+          count = sum(t.count(term) for term in term_list)
+          # naive normalization by length
+          return min(1.0, count / max(1, len(t.split()) / 50))
+
+      def sentiment_negative(text):
+          # placeholder function: return value in [-1,1]
+          # implementation-dependent (e.g. sentiment model)
+          return 0.0
+
+      def sentiment_positive(text):
+          # placeholder function: return value in [-1,1]
+          return 0.0
+
+      def count_uncertainty_markers(text):
+          markers = ["maybe", "uncertain", "not sure", "unclear", "probably"]
+          t = text.lower()
+          return sum(t.count(m) for m in markers)
+
+      def compute_scores(text):
+          risk = freq(text, risk_terms)
+          opp = freq(text, opportunity_terms)
+
+          neg = sentiment_negative(text)            # [-1,1] → will be mapped to [0,1]
+          pos = sentiment_positive(text)            # [-1,1] → will be mapped to [0,1]
+          uncert = count_uncertainty_markers(text)  # raw count
+
+          neg = max(0.0, min(1.0, (neg + 1) / 2.0))
+          pos = max(0.0, min(1.0, (pos + 1) / 2.0))
+          uncert = max(0.0, min(1.0, uncert / 10.0))
+
+          threat_score = max(0.0, min(1.0,
+              0.5 * risk +
+              0.3 * neg +
+              0.2 * uncert))
+
+          opportunity_score = max(0.0, min(1.0,
+              0.6 * opp +
+              0.4 * pos))
+
+          return threat_score, opportunity_score
+
+      def classify_OS_mode(threat_score, opportunity_score, epsilon=0.1):
+          if threat_score > opportunity_score + epsilon:
+              return "OS_L"
+          elif opportunity_score > threat_score + epsilon:
+              return "OS_E"
+          else:
+              return "mixed"
+
+  # --------------------------------
+  # 6. EXEMPLARISCHE CASES
+  # --------------------------------
+  examples:
+    alignment_case:
+      input_text: >
+        "Due to the rising infection numbers, we are introducing a clear,
+        time-limited mask mandate. Our goal is to reduce transmission rates
+        and protect hospital capacity."
+      threat_score: 0.8
+      opportunity_score: 0.2
+      OS_mode: "OS_L"
+      mechanic: "introduce protective rules to reduce overload risk"
+      narrative: "introduce protective rules to reduce overload risk"
+      OML_comment: "High alignment: mechanic == narrative (technocratic/transparent style)."
+
+    hysteresis_case:
+      input_text: >
+        "Although the crisis is officially over, we will maintain most
+        of the emergency measures for now, just to be safe."
+      threat_score: 0.3
+      opportunity_score: 0.4
+      OS_mode: "OS_L (inertial)"
+      mechanic: "maintain high control despite reduced threat"
+      narrative: "caution and safety"
+      OML_comment: "Hysteresis: OS_L persists beyond risk justification."
+
+    mixed_signal_case:
+      input_text: >
+        "AI brings enormous opportunities for growth, but also serious risks
+        to jobs and democracy. We must innovate boldly while implementing
+        robust safeguards."
+      threat_score: 0.6
+      opportunity_score: 0.7
+      OS_mode: "mixed (OS_E with strong OS_L counterweight)"
+      mechanic: "expand AI capabilities while building regulation"
+      narrative: "balanced, responsible innovation"
+      OML_comment: "Mixed-signal environment; political struggle over which operator dominates."
+
+  # --------------------------------
+  # 7. FALSI-FÄHIGKEIT & PROBABILISTIK
+  # --------------------------------
+  falsifiability:
+    style: "probabilistic tendencies, not absolute claims"
+    tendencies:
+      - "Chronic high threat → higher probability of OS_L dominance."
+      - "Chronic high opportunity → higher probability of OS_E dominance."
+      - "Narrative/mechanic divergence is common but moderated by culture."
+      - "Systems often oscillate between L-dominated and E-dominated phases."
+    suggested_tests:
+      - "Apply OS_O to 10–15 historical regimes (risk/opportunity vs. OS_mode over time)."
+      - "Run 3 LLMs on the same corpus and compare OS_mode inter-rater reliability."
+      - "Compare OS_O states with Cynefin categories (Simple/Complicated/Complex/Chaotic)."
+
+  # --------------------------------
+  # 8. NEUTRALITÄTS-EXPERIMENT
+  # --------------------------------
+  neutrality_experiment:
+    hypothesis: >
+      Using OS_O (mechanic + narrative + OS_mode) reduces stance-bias
+      and variance across LLMs when analyzing politically charged texts.
+    protocol:
+      - "Select 20 politically controversial texts (balanced across spectra)."
+      - "Run 3 LLMs WITHOUT OS_O: ask for stance (pro/contra/neutral)."
+      - "Run the SAME 3 LLMs WITH OS_O: ask only for mechanic, narrative, OS_mode."
+      - "Compare stance-bias and inter-LLM variance before vs. after."
+    expected_outcome: >
+      OS_O framing should reduce explicit stance-taking and increase
+      agreement on functional descriptions of behavior.

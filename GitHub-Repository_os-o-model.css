@@ -1,0 +1,15 @@
+os-o-model/
+│
+├── README.md
+├── OS_O_MODEL_SPEC_v1_4.yaml
+├── os_o_reference_implementation.py
+├── examples/
+│   ├── alignment_case.txt
+│   ├── hysteresis_case.txt
+│   ├── mixed_signal_case.txt
+│   ├── economic_cycle_case.txt
+│   ├── political_speech_case.txt
+│   ├── culture_war_case.txt
+│   ├── AI_regulation_case.txt
+│   └── global_supply_chain_case.txt
+└── LICENSE.txt

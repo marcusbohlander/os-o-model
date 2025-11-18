@@ -1,0 +1,44 @@
+During the early 2010s, the country entered a period of rapid economic
+expansion driven by low interest rates, rising consumer confidence, and a
+wave of technological breakthroughs. Venture funding tripled in five
+years, and new firms emerged faster than regulators could track them.
+Policymakers celebrated the momentum and encouraged even more aggressive
+growth, framing the expansion as a historic opportunity that should not
+be slowed down by “unnecessary caution.” 
+
+By the mid-2010s, signs of overheating became visible. Real estate prices
+surged to record highs, personal debt climbed steadily, and several
+sectors began relying on speculative investment rather than actual
+productivity gains. Analysts warned that the pace of expansion was
+outstripping the economy’s structural capacity, but these warnings were
+publicly dismissed as “pessimistic noise.” Opportunity narratives
+dominated, even as underlying vulnerabilities accumulated.
+
+The cycle broke abruptly when a sudden downturn in global demand and a
+cascade of loan defaults triggered a nationwide financial shock. Within
+weeks, credit markets froze and major institutions required emergency
+intervention. The government responded with sweeping stabilization
+measures: strict capital controls, mandatory liquidity buffers, a freeze
+on high-risk lending, and emergency taxation policies aimed at preserving
+basic system integrity. The expansion logic evaporated almost overnight.
+
+Even after markets had largely stabilized, authorities kept the emergency
+regime in place. New data showed that risk levels had fallen sharply, yet
+the regulatory apparatus remained locked in high-alert mode. Officials
+argued that “the lessons of the crisis must not be forgotten” and that
+easing restrictions too quickly could trigger a second collapse. Many
+business associations complained that the continued restrictions were
+suppressing recovery and discouraging innovation, but ministries insisted
+that caution was still justified.
+
+As the economy slowly regained momentum, the system moved into a mixed
+mode: regulators experimented with selective relaxations, while industry
+leaders pushed for broader liberalization. Some sectors experienced a mild
+renewed expansion as innovation returned, while others remained constrained
+by lingering crisis-era controls. Neither stabilizing nor expansionary
+logic fully dominated, producing a patchwork of cautious growth and
+persistent restrictions.
+
+The full cycle illustrates how economic systems transition among OS_E
+expansion, OS_E overshoot, OS_L stabilization, OS_L hysteresis, and
+eventual rebalancing into a mixed operational mode.
