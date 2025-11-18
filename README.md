@@ -1,3 +1,8 @@
+# OS_O Model
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17636530.svg)](https://doi.org/10.5281/zenodo.17636530)
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+
 # OS_O – Open Source Operator Model (v1.4)
 A minimal dual-operator model (OS_L vs. OS_E) for neutral analysis of human
 systems, with a novel meta-layer (OML) that separates functional mechanics
